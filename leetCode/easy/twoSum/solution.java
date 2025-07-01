@@ -6,7 +6,7 @@ You may assume that each input would have exactly one solution, and you may not 
 You can return the answer in any order.
  */
 
- //TODO: need to implement hashmap to reduce the time complexity from n^2
+ //Done: need to implement hashmap to reduce the time complexity from n^2
 
 class Solution {
     public int[] twoSum(int[] nums, int target) {
@@ -24,5 +24,20 @@ class Solution {
             }
         }
         return arr;
+    }
+}
+
+//improve the time complexity to O(n)
+class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        HashMap <Integer, Integer> map = new HashMap<>();
+        for (int i=0; i<nums.length; i++){
+            int num = target - nums[i];
+            if(map.containsKey(num)){
+                return new int[]{map.get(num), i};
+            }
+            map.put(nums[i], i);
+        }
+        return new int []{};
     }
 }
