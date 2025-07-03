@@ -6,7 +6,7 @@ Merge the two lists into one sorted list. The list should be made by splicing to
 Return the head of the merged linked list.
  */
 
-//TODO: not sorting properly returning the list1 as it is
+//TODO: need to implement recussive solution as well
 
  /**
  * Definition for singly-linked list.
@@ -26,18 +26,26 @@ class Solution {
         if(list2 == null){
             return list1;
         }
-        ListNode currentNode1 = list1;
-        ListNode currentNode2 = list2;
-        while(currentNode1.next != null){
-            while(currentNode2.next != null){
-                if(currentNode1.val > currentNode2.val){
-                    ListNode node = new ListNode(currentNode2.val, currentNode1.next);
-                    currentNode1.next = node;
-                }
-                currentNode2 = currentNode2.next;
+        ListNode dummyHead = new ListNode(-2);
+        ListNode currentNode = dummyHead;
+        while(list1 != null && list2 != null){
+            if(list1.val <= list2.val){
+                currentNode.next = list1;
+                currentNode = currentNode.next;
+                list1 = list1.next;
             }
-            currentNode1 = currentNode1.next;
+            else{
+                currentNode.next = list2;
+                currentNode = currentNode.next;
+                list2 = list2.next;
+            }
         }
-        return list1;
+        if(list1 != null){
+            currentNode.next = list1;
+        }
+        else{
+            currentNode.next = list2;
+        }
+        return dummyHead.next;
     }
 }
