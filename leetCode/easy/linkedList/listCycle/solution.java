@@ -6,8 +6,6 @@ There is a cycle in a linked list if there is some node in the list that can be 
 Return true if there is a cycle in the linked list. Otherwise, return false.
  */
 
-// TODO: getting time limit exceeded, need to optimize the solution
-
  /**
  * Definition for singly-linked list.
  * class ListNode {
@@ -21,14 +19,12 @@ Return true if there is a cycle in the linked list. Otherwise, return false.
  */
 public class Solution {
     public boolean hasCycle(ListNode head) {
-        ListNode currentNode = head;
-        while(currentNode.next != null){
-            ListNode temp = currentNode.next;
-            while(temp != null){
-                if(currentNode == temp) return true;
-                temp = temp.next;
-            }
-            currentNode = currentNode.next;
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast != null && fast.next != null){
+            slow = slow.next;
+            fast = fast.next.next;
+            if(slow == fast) return true;
         }
         return false;
     }
